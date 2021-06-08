@@ -1,6 +1,7 @@
 CREATE TABLE earlybird_entries (
   entry_id UUID PRIMARY KEY DEFAULT uuid_generate_v1mc(),
-  entry_book_id UUID,
+  entry_book_id UUID
+    REFERENCES earlybird_books(book_id) ON DELETE CASCADE NOT NULL,
   entry_title TEXT NOT NULL,
   entry_category TEXT NOT NULL,
   entry_chapters TEXT NULL,

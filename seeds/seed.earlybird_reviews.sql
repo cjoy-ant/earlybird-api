@@ -1,0 +1,6 @@
+INSERT INTO earlbird_reviews (review_id, review_book_id, review_date_finished, review_rating, review_favorite, review_dislike, review_takeaway, review_notes, review_recommend, review_date_modified)
+VALUES
+('3dcc885e-c723-11eb-b8bc-0242ac130003', '1038017a-c4a8-11eb-8529-0242ac130003', '2019-01-14', '5', 'I like how imaginative the book is', 'it is a very long read, and sometimes difficult to follow as they skip between time periods quite frequently', '', 'not my favorite Murakami book', FALSE, '2019-01-14T00:00'),
+('444c4534-c723-11eb-b8bc-0242ac130003', '0d7c1700-c4a8-11eb-8529-0242ac130003', '2020-08-25', '8', 'I enjoy that the poems are simple, but impactful. As a woman of color myself, I resonate with a lot of the emotion and stories behind the poetry.', '', '', '', TRUE, '2020-08-25T00:00'),
+('47476f8e-c723-11eb-b8bc-0242ac130003', 'a05abb3a-c4a8-11eb-8529-0242ac130003', '2021-02-07', '7', 'I think that the KonMari method will be very useful for purging clothes and papers since those especially tend to get hoarded.', '', 'Only buy and keep that which really makes you truly happy.', '', TRUE, '2021-02-07T00:00'),
+;
