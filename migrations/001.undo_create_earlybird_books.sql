@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS earlybird_books;
+DROP EXTENSION IF EXISTS "uuid-ossp";
