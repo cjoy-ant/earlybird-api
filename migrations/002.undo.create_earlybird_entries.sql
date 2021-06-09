@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS earlybird_books;
+DROP TABLE IF EXISTS earlybird_entries;
