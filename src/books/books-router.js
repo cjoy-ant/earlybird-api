@@ -16,13 +16,40 @@ const serializeBook = (book) => ({
   book_date_modified: book.book_date_modified,
 });
 
-booksRouter.route("/").get((req, res, next) => {
-  const knex = req.app.get("db");
-  BooksService.getAllBooks(knex)
-    .then((books) => {
-      res.json(books);
-    })
-    .catch(next);
-});
+booksRouter
+  .route("/")
+  .get((req, res, next) => {
+    const knex = req.app.get("db");
+    BooksService.getAllBooks(knex)
+      .then((books) => {
+        res.json(books);
+      })
+      .catch(next);
+  })
+  .post(jsonParser, (req, res, nexT) => {
+    const { book_title, book_author, book_genre, book_date_started } = req.body;
+    const newBook = {
+      book_title,
+      book_author,
+      book_genre,
+      book_date_started,
+    };
+    const knex = req.app.get("db");
+
+    for (const [key, value] of Object.entries(newBook)) {
+      if (value == null) {
+        return res.status(400).json({
+          error: { message: `Missing '${key}' in request body` },
+        });
+      }
+    }
+
+    BooksService.insertBook(knex, newBook).then((book) => {
+      res
+        .status(201)
+        .location(path.posix.join(req.originalUrl, `/${book.book_id}`))
+        .json(seralizeBook(book));
+    });
+  });
 
 module.exports = booksRouter;
