@@ -19,9 +19,9 @@ const BooksService = {
     return knex("earlybird_books").where({ book_id }).update(newBookFields);
   },
 
-  insertBook(knex, newProvider) {
+  insertBook(knex, newBook) {
     return knex
-      .insert(newProvider)
+      .insert(newBook)
       .into("earlybird_books")
       .returning("*")
       .then((rows) => {

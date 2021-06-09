@@ -26,7 +26,7 @@ booksRouter
       })
       .catch(next);
   })
-  .post(jsonParser, (req, res, nexT) => {
+  .post(jsonParser, (req, res, next) => {
     const { book_title, book_author, book_genre, book_date_started } = req.body;
     const newBook = {
       book_title,
@@ -44,12 +44,14 @@ booksRouter
       }
     }
 
-    BooksService.insertBook(knex, newBook).then((book) => {
-      res
-        .status(201)
-        .location(path.posix.join(req.originalUrl, `/${book.book_id}`))
-        .json(seralizeBook(book));
-    });
+    BooksService.insertBook(knex, newBook)
+      .then((book) => {
+        res
+          .status(201)
+          .location(path.posix.join(req.originalUrl, `/${book.book_id}`))
+          .json(serializeBook(book));
+      })
+      .catch(next);
   });
 
 module.exports = booksRouter;
