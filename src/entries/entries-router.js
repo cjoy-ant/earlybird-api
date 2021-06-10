@@ -107,6 +107,49 @@ entryRouter
         res.status(204).end();
       })
       .catch(next);
+  })
+  .patch(jsonParser, (req, res, next) => {
+    const {
+      entry_book_id,
+      entry_title,
+      entry_category,
+      entry_chapters,
+      entry_pages,
+      entry_quote,
+      entry_notes,
+    } = req.body;
+    const entryToUpdate = {
+      entry_book_id,
+      entry_title,
+      entry_category,
+      entry_chapters,
+      entry_pages,
+      entry_quote,
+      entry_notes,
+    };
+
+    for (const [key, value] of Object.entries(entryToUpdate)) {
+      if (
+        key !== "entry_chapters" &&
+        key !== "entry_pages" &&
+        key !== "entry_quote" &&
+        key !== "entry_note" &&
+        value == null
+      ) {
+        return res.status(400).json({
+          error: {
+            message: `Request body must contain the following: entry_book_id, entry_title, entry_category.`,
+          },
+        });
+      }
+
+      const knex = req.app.get("db");
+      EntriesService.updateEntry(knex, req.params.entry_id, entryToUpdate)
+        .then((numRowsAffected) => {
+          res.status(204).end();
+        })
+        .catch(next);
+    }
   });
 
 module.exports = entryRouter;
