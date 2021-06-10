@@ -80,6 +80,14 @@ booksRouter
       book_finished: res.book.book_finished,
       book_date_modified: res.book.book_date_modified,
     });
+  })
+  .delete((req, res, next) => {
+    const knex = req.app.get("db");
+    BooksService.deleteBook(knex, req.params.book_id)
+      .then(() => {
+        res.status(204).end();
+      })
+      .catch(next);
   });
 
 module.exports = booksRouter;
