@@ -99,6 +99,14 @@ entryRouter
       entry_notes: xss(res.entry.entry_notes),
       entry_date_modified: res.entry.entry_date_modified,
     });
+  })
+  .delete((req, res, next) => {
+    const knex = req.app.get("db");
+    EntriesService.deleteEntry(knex, req.params.entry_id)
+      .then(() => {
+        res.status(204).end();
+      })
+      .catch(next);
   });
 
 module.exports = entryRouter;
