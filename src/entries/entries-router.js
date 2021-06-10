@@ -18,13 +18,58 @@ const serializeEntry = (entry) => ({
   entry_date_modified: entry.entry_date_modified,
 });
 
-entryRouter.route("/").get((req, res, next) => {
-  const knex = req.app.get("db");
-  EntriesService.getAllEntries(knex)
-    .then((entries) => {
-      res.json(entries.map(serializeEntry()));
-    })
-    .catch(next);
-});
+entryRouter
+  .route("/")
+  .get((req, res, next) => {
+    const knex = req.app.get("db");
+    EntriesService.getAllEntries(knex)
+      .then((entries) => {
+        res.json(entries.map(serializeEntry));
+      })
+      .catch(next);
+  })
+  .post(jsonParser, (req, res, next) => {
+    const {
+      entry_book_id,
+      entry_title,
+      entry_category,
+      entry_chapters,
+      entry_pages,
+      entry_quote,
+      entry_notes,
+    } = req.body;
+    const newEntry = {
+      entry_book_id,
+      entry_title,
+      entry_category,
+      entry_chapters,
+      entry_pages,
+      entry_quote,
+      entry_notes,
+    };
+    const knex = req.app.get("db");
+
+    for (const [key, value] of Object.entries(newEntry)) {
+      if (
+        key !== "entry_chapters" &&
+        key !== "entry_pages" &&
+        key !== "entry_quote" &&
+        key !== "entry_note" &&
+        value == null
+      ) {
+        return res.status(400).json({
+          error: { message: `Missing '${key}' in request body` },
+        });
+      }
+    }
+    EntriesService.insertEntry(knex, newEntry)
+      .then((entry) => {
+        res
+          .status(201)
+          .location(path.posix.join(req.originalUrl, `/${entry.entry_id}`))
+          .json(serializeEntry(entry));
+      })
+      .catch(next);
+  });
 
 module.exports = entryRouter;
