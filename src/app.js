@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const { NODE_ENV, CLIENT_ORIGIN, LOCAL_CLIENT } = require("./config");
 const errorHandler = require("./error-handler");
+const booksRouter = require("./books/books-router");
 
 const app = express();
 
@@ -17,6 +18,8 @@ app.use(
     origin: [CLIENT_ORIGIN, LOCAL_CLIENT],
   })
 );
+
+app.use("/api/books", booksRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
