@@ -54,4 +54,32 @@ booksRouter
       .catch(next);
   });
 
+booksRouter
+  .route("/:book_id")
+  .all((req, res, next) => {
+    const knex = req.app.get("db");
+    BooksService.getById(knex, req.params.book_id)
+      .then((book) => {
+        if (!book) {
+          return res.status(404).json({
+            error: { message: `Book not found` },
+          });
+        }
+        res.book = book;
+        next();
+      })
+      .catch(next);
+  })
+  .get((req, res, next) => {
+    res.json({
+      book_id: res.book.book_id,
+      book_title: xss(res.book.book_title),
+      book_author: xss(res.book.book_author),
+      book_genre: xss(res.book.book_genre),
+      book_date_started: res.book.book_date_started,
+      book_finished: res.book.book_finished,
+      book_date_modified: res.book.book_date_modified,
+    });
+  });
+
 module.exports = booksRouter;
