@@ -88,6 +88,31 @@ booksRouter
         res.status(204).end();
       })
       .catch(next);
+  })
+  .patch(jsonParser, (req, res, next) => {
+    const { book_title, book_author, book_genre, book_date_started } = req.body;
+    const bookToUpdate = {
+      book_title,
+      book_author,
+      book_genre,
+      book_date_started,
+    };
+
+    const numberOfValues = Object.values(bookToUpdate).filter(Boolean).length;
+    if (numberOfValues === 0) {
+      return res.status(400).json({
+        error: {
+          message: `Request body must contain the following: book_title, book_author, book_genre, book_date_started.`,
+        },
+      });
+    }
+
+    const knex = req.app.get("db");
+    BooksService.updateBook(knex, req.params.book_id, bookToUpdate)
+      .then((numRowsAffected) => {
+        res.status(204).end();
+      })
+      .catch(next);
   });
 
 module.exports = booksRouter;
