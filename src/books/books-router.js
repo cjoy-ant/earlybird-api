@@ -22,7 +22,7 @@ booksRouter
     const knex = req.app.get("db");
     BooksService.getAllBooks(knex)
       .then((books) => {
-        res.json(books);
+        res.json(books.map(serializeBook));
       })
       .catch(next);
   })
