@@ -30,6 +30,12 @@ const ReviewsService = {
         return rows[0];
       });
   },
+
+  markBookFinished(knex, review_book_id) {
+    return knex("earlybird_books")
+      .where({ book_id: review_book_id })
+      .update({ book_finished: true });
+  },
 };
 
 module.exports = ReviewsService;
