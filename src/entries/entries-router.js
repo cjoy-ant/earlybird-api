@@ -22,7 +22,7 @@ entryRouter.route("/").get((req, res, next) => {
   const knex = req.app.get("db");
   EntriesService.getAllEntries(knex)
     .then((entries) => {
-      res.json(entries.map((entry) => serializeEntry(entry)));
+      res.json(entries.map(serializeEntry()));
     })
     .catch(next);
 });
