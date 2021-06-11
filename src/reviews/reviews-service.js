@@ -36,6 +36,20 @@ const ReviewsService = {
       .where({ book_id: review_book_id })
       .update({ book_finished: true });
   },
+
+  markBookNotFinished(knex, book_id) {
+    return knex("earlybird_books")
+      .where({ book_id: book_id })
+      .update({ book_finished: false });
+  },
+
+  getBook(knex, review_id) {
+    return knex
+      .from("earlybird_reviews")
+      .select("review_book_id")
+      .where("review_id", review_id)
+      .first();
+  },
 };
 
 module.exports = ReviewsService;

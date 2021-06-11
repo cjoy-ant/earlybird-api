@@ -106,6 +106,18 @@ reviewRouter
       review_recommend: res.review.review_recommend,
       review_date_modified: res.review.review_date_modified,
     });
+  })
+  .delete((req, res, next) => {
+    const knex = req.app.get("db");
+    ReviewsService.getBook(knex, req.params.review_id).then((review) => {
+      ReviewsService.markBookNotFinished(knex, review.review_book_id).then(
+        ReviewsService.deleteReview(knex, req.params.review_id)
+          .then(() => {
+            res.status(204).end();
+          })
+          .catch(next)
+      );
+    });
   });
 
 module.exports = reviewRouter;
