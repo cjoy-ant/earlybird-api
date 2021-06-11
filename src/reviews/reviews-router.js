@@ -118,6 +118,52 @@ reviewRouter
           .catch(next)
       );
     });
+  })
+  .patch(jsonParser, (req, res, next) => {
+    const {
+      review_book_id,
+      review_date_finished,
+      review_rating,
+      review_favorite,
+      review_dislike,
+      review_takeaway,
+      review_notes,
+      review_recommend,
+    } = req.body;
+    const reviewToUpdate = {
+      review_book_id,
+      review_date_finished,
+      review_rating,
+      review_favorite,
+      review_dislike,
+      review_takeaway,
+      review_notes,
+      review_recommend,
+    };
+
+    for (const [key, value] of Object.entries(reviewToUpdate)) {
+      if (
+        key !== "review_favorite" &&
+        key !== "review_dislike" &&
+        key !== "review_takeaway" &&
+        key !== "review_notes" &&
+        value == null
+      ) {
+        return res.status(400).json({
+          error: {
+            message: `Request body must contain the following: review_book_id, review_date_finished,
+            review_rating, review_recommend.`,
+          },
+        });
+      }
+
+      const knex = req.app.get("db");
+      ReviewsService.updateReview(knex, req.params.review_id, reviewToUpdate)
+        .then((numRowsAffected) => {
+          res.status(204).end();
+        })
+        .catch(next);
+    }
   });
 
 module.exports = reviewRouter;
