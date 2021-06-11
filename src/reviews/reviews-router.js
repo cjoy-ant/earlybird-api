@@ -77,5 +77,35 @@ reviewRouter
         .catch(next)
     );
   });
+reviewRouter
+  .route("/:review_id")
+  .all((req, res, next) => {
+    const knex = req.app.get("db");
+    ReviewsService.getById(knex, req.params.review_id)
+      .then((review) => {
+        if (!review) {
+          return res.status(404).json({
+            error: { message: `Review not found` },
+          });
+        }
+        res.review = review;
+        next();
+      })
+      .catch(next);
+  })
+  .get((req, res, next) => {
+    res.json({
+      review_id: res.review.review_id,
+      review_book_id: res.review.review_book_id,
+      review_date_finished: res.review.review_date_finished,
+      review_rating: res.review.review_rating,
+      review_favorite: xss(res.review.review_favorite),
+      review_dislike: xss(res.review.review_dislike),
+      review_takeaway: xss(res.review.review_takeaway),
+      review_notes: xss(res.review.review_notes),
+      review_recommend: res.review.review_recommend,
+      review_date_modified: res.review.review_date_modified,
+    });
+  });
 
 module.exports = reviewRouter;
