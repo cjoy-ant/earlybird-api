@@ -122,8 +122,8 @@ function makeMaliciousBook() {
 
 function makeMaliciousEntry() {
   const maliciousEntry = {
-    entry_id: "bb1bc738-cae4-11eb-b8bc-0242ac130003",
-    entry_book_id: "2973a2d6-cb18-11eb-b8bc-0242ac130003",
+    entry_id: "1ba113d2-cb27-11eb-b8bc-0242ac130003",
+    entry_book_id: "4a3ae350-cae4-11eb-b8bc-0242ac130003",
     entry_title: 'BAD <script>alert("xss");</script>',
     entry_category: 'BAD <script>alert("xss");</script>',
     entry_chapters: 'BAD <script>alert("xss");</script>',
@@ -135,8 +135,8 @@ function makeMaliciousEntry() {
 
   const expectedEntry = {
     ...maliciousEntry,
-    entry_id: "bb1bc738-cae4-11eb-b8bc-0242ac130003",
-    entry_book_id: "2973a2d6-cb18-11eb-b8bc-0242ac130003",
+    entry_id: "1ba113d2-cb27-11eb-b8bc-0242ac130003",
+    entry_book_id: "4a3ae350-cae4-11eb-b8bc-0242ac130003",
     entry_title: 'BAD &lt;script&gt;alert("xss");&lt;/script&gt;',
     entry_category: 'BAD &lt;script&gt;alert("xss");&lt;/script&gt;',
     entry_chapters: 'BAD &lt;script&gt;alert("xss");&lt;/script&gt;',
@@ -150,7 +150,7 @@ function makeMaliciousEntry() {
 function makeMaliciousReview() {
   const maliciousReview = {
     review_id: "be7a8606-cb18-11eb-b8bc-0242ac130003",
-    review_book_id: "2973a2d6-cb18-11eb-b8bc-0242ac130003",
+    review_book_id: "54703712-cae4-11eb-b8bc-0242ac130003",
     review_date_finished: "2021-06-07",
     review_rating: "0",
     review_favorite: 'BAD <script>alert("xss");</script>',
@@ -164,7 +164,7 @@ function makeMaliciousReview() {
   const expectedReview = {
     ...maliciousReview,
     review_id: "be7a8606-cb18-11eb-b8bc-0242ac130003",
-    review_book_id: "2973a2d6-cb18-11eb-b8bc-0242ac130003",
+    review_book_id: "54703712-cae4-11eb-b8bc-0242ac130003",
     review_date_finished: "2021-06-07",
     review_rating: "0",
     review_favorite: 'BAD &lt;script&gt;alert("xss");&lt;/script&gt;',
@@ -199,6 +199,16 @@ const newEntry = {
   entry_pages: "1-10",
   entry_quote: "Test Quote",
   entry_notes: "Test Entry Notes",
+};
+
+const updatedEntry = {
+  entry_book_id: "4a3ae350-cae4-11eb-b8bc-0242ac130003",
+  entry_title: "Updated Entry",
+  entry_category: "Updated Category",
+  entry_chapters: "1",
+  entry_pages: "1-10",
+  entry_quote: "Updated Quote",
+  entry_notes: "Updated Notes",
 };
 
 const newReview = {
