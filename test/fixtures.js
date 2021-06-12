@@ -157,7 +157,7 @@ function makeMaliciousReview() {
     review_dislike: 'BAD <script>alert("xss");</script>',
     review_takeaway: 'BAD <script>alert("xss");</script>',
     review_notes: 'BAD <script>alert("xss");</script>',
-    review_recommend: true,
+    review_recommend: false,
     review_date_modified: new Date().toISOString(),
   };
 
@@ -176,6 +176,34 @@ function makeMaliciousReview() {
 
   return { maliciousReview, expectedReview };
 }
+
+const newBook = {
+  book_title: "Test New Book",
+  book_author: "Test New Author",
+  book_genre: "Test New Genre",
+  book_date_started: "2021-06-11",
+};
+
+const newEntry = {
+  entry_book_id: "4a3ae350-cae4-11eb-b8bc-0242ac130003",
+  entry_title: "Test New Entry",
+  entry_category: "Test Entry Category",
+  entry_chapters: "1",
+  entry_pages: "1-10",
+  entry_quote: "Test Quote",
+  entry_notes: "Test Entry Notes",
+};
+
+const newReview = {
+  review_book_id: "54703712-cae4-11eb-b8bc-0242ac130003",
+  review_date_finished: "2021-06-11",
+  review_rating: "5",
+  review_favorite: "Test Review Favorite",
+  review_dislike: "Test Review Dislike",
+  review_takeaway: "Test Review Takeaway",
+  review_notes: "Test Review Notes",
+  review_recommend: false,
+};
 
 const testIds = {
   book: "4a3ae350-cae4-11eb-b8bc-0242ac130003",

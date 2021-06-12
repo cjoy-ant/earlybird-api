@@ -102,4 +102,155 @@ describe("/books Endpoints", function () {
       });
     });
   });
+
+  describe("POST /api/books/", () => {
+    const testBooks = makeBooksArray();
+
+    beforeEach("insert test books", () => {
+      return db.into("earlybird_books").insert(testBooks);
+    });
+
+    it("creates a provider, responding with 201 and the new book", () => {
+      const newBook = {
+        book_title: "Test New Book",
+        book_author: "Test New Author",
+        book_genre: "Test New Genre",
+        book_date_started: "2021-06-11",
+      };
+
+      return supertest(app)
+        .post(`/api/books`)
+        .send(newBook)
+        .expect(201)
+        .expect((res) => {
+          expect(res.body.book_title).to.eql(newBook.book_title);
+          expect(res.body.book_author).to.eql(newBook.book_author);
+          expect(res.body.book_genre).to.eql(newBook.book_genre);
+          expect(res.body.book_date_started).to.eql(newBook.book_date_started);
+          expect(res.body).to.have.property("book_id");
+          expect(res.headers.location).to.eql(`/api/books/${res.body.book_id}`);
+        })
+        .then((postRes) =>
+          supertest(app)
+            .get(`/api/books/${postRes.body.book_id}`)
+            .expect(postRes.body)
+        );
+    });
+
+    // validation testing
+    const requiredFields = [
+      "book_title",
+      "book_author",
+      "book_genre",
+      "book_date_started",
+    ];
+
+    requiredFields.forEach((field) => {
+      const newBook = {
+        book_title: "Test New Book",
+        book_author: "Test New Author",
+        book_genre: "Test New Genre",
+        book_date_started: "2021-06-11",
+      };
+
+      it(`responds with 400 and an error message when the '${field}' is missing`, () => {
+        delete newBook[field];
+
+        return supertest(app)
+          .post(`/api/books`)
+          .send(newBook)
+          .expect(400, {
+            error: { message: `Missing '${field}' in request body` },
+          });
+      });
+    });
+
+    it("removes XSS attack content", () => {
+      const { maliciousBook, expectedBook } = makeMaliciousBook();
+      return supertest(app)
+        .post(`/api/books`)
+        .send(maliciousBook)
+        .expect(201)
+        .expect((res) => {
+          expect(res.body.book_title).to.eql(expectedBook.book_title);
+        })
+        .expect((res) => {
+          expect(res.body.book_author).to.eql(expectedBook.book_author);
+        })
+        .expect((res) => {
+          expect(res.body.book_genre).to.eql(expectedBook.book_genre);
+        })
+        .expect((res) => {
+          expect(res.body.book_date_started).to.eql(
+            expectedBook.book_date_started
+          );
+        });
+    });
+  });
+
+  describe("DELETE /api/books/:book_id", () => {
+    context("Given no books", () => {
+      it("responds with 404", () => {
+        const bookId = testIds.book;
+        return supertest(app)
+          .delete(`/api/books/${bookId}`)
+          .expect(404, { error: { message: `Book not found` } });
+      });
+    });
+
+    context("Given there are books in the database", () => {
+      const testBooks = makeBooksArray();
+
+      beforeEach("insert test books", () => {
+        return db.into("earlybird_books").insert(testBooks);
+      });
+
+      it("responds with 204 and removes the note", () => {
+        const idToRemove = testBooks[1].book_id; // test book 1
+        const expectedBooks = testBooks.filter(
+          (book) => book.book_id !== idToRemove
+        );
+
+        return supertest(app)
+          .delete(`/api/books/${idToRemove}`)
+          .expect(204)
+          .then((res) => {
+            supertest(app).get(`/api/books`).expect(expectedBooks);
+          });
+      });
+    });
+  });
+
+  describe("DELETE /api/books/:book_id", () => {
+    context("Given no books", () => {
+      it("responds with 404", () => {
+        const bookId = testIds.book;
+        return supertest(app)
+          .delete(`/api/books/${bookId}`)
+          .expect(404, { error: { message: `Book not found` } });
+      });
+    });
+
+    context("Given there are books in the database", () => {
+      const testBooks = makeBooksArray();
+
+      beforeEach("insert test books", () => {
+        return db.into("earlybird_books").insert(testBooks);
+      });
+
+      it("responds with 204 and removes the note", () => {
+        const idToRemove = testIds.book; // test book 1
+        const expectedBooks = testBooks.filter(
+          (book) => book.book_id !== idToRemove
+        );
+
+        return supertest(app)
+          .delete(`/api/books/${idToRemove}`)
+          .expect(204)
+          .then((res) => {
+            supertest(app).get(`/api/books`).expect(expectedBooks);
+          });
+      });
+    });
+  });
 });
