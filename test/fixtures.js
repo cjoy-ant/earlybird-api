@@ -222,6 +222,17 @@ const newReview = {
   review_recommend: false,
 };
 
+const updatedReview = {
+  review_book_id: "54703712-cae4-11eb-b8bc-0242ac130003",
+  review_date_finished: "2021-06-11",
+  review_rating: "5",
+  review_favorite: "Updated Review Favorite",
+  review_dislike: "Updated Review Dislike",
+  review_takeaway: "Updated Review Takeaway",
+  review_notes: "Updated Review Notes",
+  review_recommend: false,
+};
+
 const testIds = {
   book: "4a3ae350-cae4-11eb-b8bc-0242ac130003",
   entry: "b88913c2-cae4-11eb-b8bc-0242ac130003",

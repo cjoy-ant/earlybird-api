@@ -252,8 +252,8 @@ describe("/entries Endpoints", function () {
           });
       });
 
-      it("responds with 204 and removes the note", () => {
-        const idToRemove = testEntries[1].entry_id; // test book 1
+      it("responds with 204 and removes the entry", () => {
+        const idToRemove = testIds.entry; // test entry 1
         const expectedEntries = testEntries.filter(
           (entry) => entry.entry_id !== idToRemove
         );
@@ -291,8 +291,8 @@ describe("/entries Endpoints", function () {
           });
       });
 
-      it("responds with 204 and removes the note", () => {
-        const idToRemove = testIds.entry; // test book 1
+      it("responds with 204 and removes the entry", () => {
+        const idToRemove = testIds.entry; // test entry 1
         const expectedEntries = testEntries.filter(
           (entry) => entry.entry_id !== idToRemove
         );
@@ -330,8 +330,8 @@ describe("/entries Endpoints", function () {
           });
       });
 
-      it("responds with 204 and updates the book", () => {
-        const idToUpdate = testIds.entry; // test book 1
+      it("responds with 204 and updates the entry", () => {
+        const idToUpdate = testIds.entry; // test entry 1
         const updatedEntry = {
           entry_book_id: "4a3ae350-cae4-11eb-b8bc-0242ac130003",
           entry_title: "Updated Entry",

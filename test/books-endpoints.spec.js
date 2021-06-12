@@ -206,7 +206,7 @@ describe("/books Endpoints", function () {
       });
 
       it("responds with 204 and removes the note", () => {
-        const idToRemove = testBooks[1].book_id; // test book 1
+        const idToRemove = testIds.book; // test book 1
         const expectedBooks = testBooks.filter(
           (book) => book.book_id !== idToRemove
         );
