@@ -105,7 +105,7 @@ function makeMaliciousBook() {
     book_genre: 'BAD <script>alert("xss");</script>',
     book_date_started: "2021-06-01",
     book_finished: true,
-    book_date_modified: new Date.toISOString(),
+    book_date_modified: new Date().toISOString(),
   };
 
   const expectedBook = {
@@ -130,7 +130,7 @@ function makeMaliciousEntry() {
     entry_pages: 'BAD <script>alert("xss");</script>',
     entry_quote: 'BAD <script>alert("xss");</script>',
     entry_notes: 'BAD <script>alert("xss");</script>',
-    entry_date_modified: new Date.toISOString(),
+    entry_date_modified: new Date().toISOString(),
   };
 
   const expectedEntry = {
@@ -158,7 +158,7 @@ function makeMaliciousReview() {
     review_takeaway: 'BAD <script>alert("xss");</script>',
     review_notes: 'BAD <script>alert("xss");</script>',
     review_recommend: true,
-    review_date_modified: new Date.toISOString(),
+    review_date_modified: new Date().toISOString(),
   };
 
   const expectedReview = {
