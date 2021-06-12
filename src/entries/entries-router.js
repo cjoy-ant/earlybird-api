@@ -91,7 +91,7 @@ entryRouter
     res.json({
       entry_id: res.entry.entry_id,
       entry_book_id: res.entry.entry_book_id,
-      entry_title: xss(res.entry.bentry_title),
+      entry_title: xss(res.entry.entry_title),
       entry_category: xss(res.entry.entry_category),
       entry_chapters: xss(res.entry.entry_chapters),
       entry_pages: xss(res.entry.entry_pages),
