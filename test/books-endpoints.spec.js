@@ -253,4 +253,46 @@ describe("/books Endpoints", function () {
       });
     });
   });
+
+  describe("PATCH /api/books/:book_id", () => {
+    context("Given no books", () => {
+      it("responds with 404", () => {
+        const bookId = testIds.book;
+        return supertest(app)
+          .patch(`/api/books/${bookId}`)
+          .expect(404, { error: { message: `Book not found` } });
+      });
+    });
+
+    context("Given there are books in the database", () => {
+      const testBooks = makeBooksArray();
+
+      beforeEach("insert test books", () => {
+        return db.into("earlybird_books").insert(testBooks);
+      });
+
+      it("responds with 204 and updates the book", () => {
+        const idToUpdate = testIds.book; // test book 1
+        const updatedBook = {
+          book_title: "Test New Book",
+          book_author: "Updated Author",
+          book_genre: "Updated Genre",
+          book_date_started: "2021-06-11",
+        };
+
+        const expectedBook = {
+          ...testBooks[0],
+          ...updatedBook,
+        };
+
+        return supertest(app)
+          .patch(`/api/books/${idToUpdate}`)
+          .send(updatedBook)
+          .expect(204)
+          .then((res) => {
+            supertest(app).get(`/api/books/${idToUpdate}`).expect(expectedBook);
+          });
+      });
+    });
+  });
 });

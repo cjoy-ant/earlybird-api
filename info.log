@@ -22,3 +22,4 @@
 {"message":"select * from \"earlybird_books\" where \"book_id\" = $1 limit $2 - invalid input syntax for type uuid: \"undefined\"","level":"error"}
 {"message":"select * from \"earlybird_books\" where \"book_id\" = $1 limit $2 - invalid input syntax for type uuid: \"undefined\"","level":"error"}
 {"message":"select * from \"earlybird_books\" where \"book_id\" = $1 limit $2 - invalid input syntax for type uuid: \"undefined\"","level":"error"}
+{"message":"select * from \"earlybird_books\" where \"book_id\" = $1 limit $2 - invalid input syntax for type uuid: \"undefined\"","level":"error"}

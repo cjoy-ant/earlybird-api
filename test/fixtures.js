@@ -184,6 +184,13 @@ const newBook = {
   book_date_started: "2021-06-11",
 };
 
+const updatedBook = {
+  book_title: "Test New Book",
+  book_author: "Updated Author",
+  book_genre: "Updated Genre",
+  book_date_started: "2021-06-11",
+};
+
 const newEntry = {
   entry_book_id: "4a3ae350-cae4-11eb-b8bc-0242ac130003",
   entry_title: "Test New Entry",
