@@ -6,6 +6,8 @@ const cors = require("cors");
 const { NODE_ENV, CLIENT_ORIGIN, LOCAL_CLIENT } = require("./config");
 const errorHandler = require("./error-handler");
 const booksRouter = require("./books/books-router");
+const entryRouter = require("./entries/entries-router");
+const reviewRouter = require("./reviews/reviews-router");
 
 const app = express();
 
@@ -20,6 +22,8 @@ app.use(
 );
 
 app.use("/api/books", booksRouter);
+app.use("/api/entries", entryRouter);
+app.use("/api/reviews", reviewRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
