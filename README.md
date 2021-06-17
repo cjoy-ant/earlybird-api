@@ -1,26 +1,87 @@
-# Express Boilerplate!
+# EarlyBird
 
-This is a boilerplate project used for starting new projects!
+## About the App
 
-## Setup
+EarlyBird is a book tracking and journaling app that encourages you bookworms to read actively, consume literature intentionally, and reflect diligently by taking notes and writing reviews on your current reading list.
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+---
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECT-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Enviornment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate"`
+## Pages
 
-## Scripts
+### Home Page
 
-Start the application `npm start`
+![Home Page](src/images/screenshots/Home.png)
 
-Start nodemon for the application `npm run dev`
+### About Page
 
-Run the tests `npm test`
+![About Page](src/images/screenshots/About.png)
 
-## Deploying
+### List of Books
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's main branch.
+![Books](src/images/screenshots/BookList.png)
+
+### Book Page
+
+![Book Page](src/images/screenshots/BookPage.png)
+
+### Entry Page
+
+![Entry Page](src/images/screenshots/EntryPage.png)
+
+---
+
+## [API Documentation](https://hidden-atoll-11404.herokuapp.com/)
+
+### Endpoints
+
+#### /api/books
+
+- GET: returns all of the user's books
+- POST: add a book
+
+#### /api/books/:book_id
+
+- PATCH: update information for a specified book
+- DELETE: delete a specified book
+
+#### /api/entries
+
+- GET: returns all of the user's entries
+- POST: add a visit
+
+#### /api/entries/:entry_id
+
+- PATCH: update information for a specified entry
+- DELETE: delete a specified entry
+
+#### /api/reviews
+
+- GET: returns all of the user's book reviews
+- POST: add a book review
+
+#### /api/reviews/:review_id
+
+- PATCH: update information for a specified book review
+- DELETE: delete a specified book review
+
+---
+
+### Technology Used:
+
+- HTML
+- CSS
+- JavaScript
+- ReactJS
+- NodeJS
+- Express
+- PostgreSQL
+
+---
+
+### Aspiring Features:
+
+- Ability to add new categories to entries
+- Show cover photo of each book on their designated pages (fetch data from Google Books API)
+- Show a list of suggested books that are similar to reads that you enjoyed or marked that you would recommend
+- Search / filter function when viewing the list of books and entries
+- User authentication to allow the app to be used as a social platform / for book clubs
