@@ -25,10 +25,6 @@ app.use("/api/books", booksRouter);
 app.use("/api/entries", entryRouter);
 app.use("/api/reviews", reviewRouter);
 
-app.get("/", (req, res) => {
-  res.send("Hello, world!");
-});
-
 app.use(errorHandler);
 
 module.exports = app;
